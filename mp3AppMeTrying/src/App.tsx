@@ -4,6 +4,8 @@ import './App.css'
 
 const App: React.FC = () => {
     const [audioFile, setAudioFile] = useState<File | null>(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files[0]) {
@@ -11,6 +13,16 @@ const App: React.FC = () => {
 
       }
       }
+
+
+        const handleProcess = () => {
+          setIsProcessing(true);
+          // Simulate processing time
+            setTimeout(() => {
+            setIsProcessing(false);
+            alert("Processing complete!");
+             }, 2000);
+            };
 
 
   return (
@@ -30,7 +42,18 @@ const App: React.FC = () => {
         </div>
       )}
 
-      
+      {audioFile && (
+            <div>
+              <button
+                onClick={handleProcess}
+                disabled={isProcessing}
+              >
+            {isProcessing ? "Processing..." : "Generate Summary"}
+              </button>
+            </div>
+       )}
+ 
+
     </div>
     
   );
